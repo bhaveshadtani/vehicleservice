@@ -1,0 +1,161 @@
+<%- include('./includes/head.ejs') %>
+  <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+
+  </head>
+
+  <body class="g-sidenav-show  bg-gray-100">
+    <%- include('./includes/sidebar.ejs') %>
+      </aside>
+      <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <%- include('./includes/navigation.ejs') %>
+
+          </nav>
+          <!-- End Navbar -->
+
+          <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                  <div class="card-body p-3">
+                    <div class="row">
+                      <div class="col-8">
+                        <div class="numbers">
+                          <p class="text-sm mb-0 text-capitalize font-weight-bold">Welcome </p>
+                          <h5 class="font-weight-bolder mb-1">
+                            <%=userName%><br>
+                              <%if(role==0){%>
+                                <span class="text-success text-lg font-weight-bolder ">Super Admin</span>
+                                <%}if(role==1){%>
+                                  <span class="text-success text-lg font-weight-bolder ">Admin</span>
+                                  <%}if(role==2){%>
+                                    <span class="text-danger text-lg font-weight-bolder">Customer</span>
+                                    <%}%>
+                          </h5>
+                        </div>
+                      </div>
+                      <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
+                          <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <%if(role==0||role==1){%>
+
+                <%if(role==0){%>
+                <!-- Admin -->
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                  <div class="card">
+                    <div class="card-body p-3">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Admin</p>
+                            <h5 class="font-weight-bolder mb-0 ">
+                              <%=userCount%>
+                            </h5>
+                          </div>
+                        </div>
+                        <div class="col-4 text-end">
+                          <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+                <!-- Clients -->
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                  <div class="card">
+                    <div class="card-body p-3">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Clients</p>
+                            <h5 class="font-weight-bolder mb-0">
+                              <%if(totalCustomer){%>
+                                <%=totalCustomer%>
+                                  <%}else{%>
+                                    <%=customerData%>
+                                      <%}%>
+                            </h5>
+                          </div>
+                        </div>
+                        <div class="col-4 text-end">
+                          <div class="icon icon-shape bg-gradient-warning shadow text-center border-radius-md">
+                            <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%if(role==0){%>
+                <!-- Sales Super Admin -->
+                <div class="col-xl-3 col-sm-6">
+                  <div class="card">
+                    <div class="card-body p-3">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
+                            <h5 class="font-weight-bolder mb-0">
+                              <%=totalAmount%>
+                            </h5>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Services</p>
+                            <span class="text-dark text-lg font-weight-bolder">
+                              <%=totalAdminServices%>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-4 text-end">
+                          <div class="icon icon-shape bg-gradient-success shadow text-center border-radius-md">
+                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+                <%}if(role==2){%>
+                  <!-- Sales Customer Admin -->
+                  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                      <div class="card-body p-3">
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="numbers">
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales </p>
+                              <h5 class="font-weight-bolder mb-1">
+                                <%=totalCustomerAmount%>
+                              </h5>
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Services</p>
+                              <span class="text-dark text-lg font-weight-bolder">
+                                <%=totalService%>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-success shadow text-center border-radius-md">
+                              <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <%}%>
+            </div>
+
+
+
+
+            <%- include('./includes/end.ejs') %>

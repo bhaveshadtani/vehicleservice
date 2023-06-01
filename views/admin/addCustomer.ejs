@@ -1,0 +1,173 @@
+<%- include('./includes/head.ejs') %>
+    <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100">
+        <%- include('./includes/sidebar.ejs') %>
+            </aside>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <%- include('./includes/navigation.ejs') %>
+
+                    </nav>
+                    <!-- End Navbar -->
+
+                    <main class="main-content  mt-0">
+                        <section class="min-vh-10 mb-8">
+                            <!-- <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+                                style="background-image: url('/images/curved-images/curved-8.jpg');">
+                                <span class="mask bg-gradient-dark opacity-1"></span>
+
+                            </div> -->
+                            <div class="container">
+                                <div class="row mt-6">
+                                    <div class="col-xl-8 col-lg-5 col-md-7 mx-auto">
+                                        <div class="card z-index-0">
+                                            <div class="card-header text-center text-info pt-3 pb-0">
+                                                <h5>
+                                                    <%if(editing){%>Edit<%}else{%>Add<%}%> Customer
+                                                </h5>
+                                            </div>
+                                            <div class="card-body mt-0">
+                                                <form action="<%if(editing){%>updateCustomer<%}else{%>addCustomer<%}%>" method="POST" role="form text-left" enctype="multipart/form-data">
+                                                    <div class="mb-3">
+                                                        <input type="text"
+                                                            class="form-control <%= validationErrors.find(e=>e.param==='name') ? 'invalid' : '' %>"
+                                                            name="name" placeholder="Name" aria-label="Name" <%if(editing){%>required<%}%>
+                                                            aria-describedby="name-addon" value="<%= editing ? customerData.name : oldValue.name %>">
+                                                                <% if (typeof alert !='undefined' ) { %>
+                                                                    <div role="alert" style="color:red; font-size:smaller; text-align: justify;">
+                                                                        <%if( alert=='Name should not be empty' ) {%>
+                                                                            &nbsp; <%= alert %>
+                                                                                <% } %>
+                                                                    </div>
+                                                                    <% } %>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="email"
+                                                            class="form-control <%= validationErrors.find(e=>e.param==='email') ? 'invalid' : '' %>"
+                                                            name="email" placeholder="Email" aria-label="Email"
+                                                            aria-describedby="email-addon" <%if(editing){%>required<%}%> value="<%= editing ? customerData.email : oldValue.email %>">
+                                                                <% if (typeof alert !='undefined' ) { %>
+                                                                    <div role="alert"
+                                                                        style="color:red; font-size:smaller; text-align: justify;">
+                                                                        <%if(alert=='Email already exists, please pick a different one.'){%>
+                                                                            &nbsp; <%= alert %>
+                                                                                <% } %>
+                                                                    </div>
+                                                                    <% } %>
+                                                    </div>
+                                                    <%if(!editing){%>
+                                                        <div class="mb-3">
+                                                            <input type="password"
+                                                                class="form-control <%= validationErrors.find(e=>e.param==='password') ? 'invalid' : '' %>"
+                                                                name="password" placeholder="Password"
+                                                                aria-label="Password" aria-describedby="password-addon"
+                                                                <%if(editing){%>required<%}%> value="<%= editing ? customerData.password : oldValue.password %>">
+                                                                    <% if (typeof alert !='undefined' ) { %>
+                                                                        <div role="alert"
+                                                                            style="color:red; font-size:small; text-align: justify;">
+                                                                            <%if(alert=='Password Length must be 8 digit.'){%>
+                                                                                &nbsp;<%= alert %>
+                                                                                    <% } %>
+                                                                        </div>
+                                                                        <% } %>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <input type="password"
+                                                                class="form-control <%= validationErrors.find(e=>e.param==='confirm_password') ? 'invalid' : '' %>"
+                                                                name="confirm_password" placeholder="Confirm Password"
+                                                                aria-label="Confirm Password" value="<%= oldValue.confirm_password %>"
+                                                                aria-describedby="password-addon">
+                                                            <% if (typeof alert !='undefined' ) { %>
+                                                                <div role="alert"
+                                                                    style="color:red; font-size:smaller; text-align: justify;">
+                                                                    <%if(alert=='Confirm password does not match with password') {%>
+                                                                        &nbsp; <%= alert %>
+                                                                            <% } %>
+                                                                </div>
+                                                                <% } %>
+                                                        </div>
+                                                        <%}%>
+                                                            <div class="mb-3">
+                                                                <input type="text"
+                                                                    class="form-control <%= validationErrors.find(e=>e.param==='phone_no') ? 'invalid' : '' %>"
+                                                                    name="dob" onfocus="(this.type='date')"
+                                                                    placeholder="Enter Birth Date"
+                                                                    aria-label="Enter Birth Date"
+                                                                    aria-describedby="birth_date-addon"  value="<%=editing ? customerData.dob : oldValue.dob %>" <%if(editing){%>required<%}%>>
+                                                                        <% if (typeof alert !='undefined' ) { %>
+                                                                            <div role="alert"
+                                                                                style="color:red; font-size:smaller; text-align: justify;">
+                                                                                <%if(alert=='Please enter date of birth'){%>
+                                                                                    &nbsp; <%= alert %>
+                                                                                        <% } %>
+                                                                            </div>
+                                                                            <% } %>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="text" onkeypress="isNumber(event)"
+                                                                    class="form-control <%= validationErrors.find(e=>e.param==='phone_no') ? 'invalid' : '' %>"
+                                                                    name="phone_no" 
+                                                                    minlength="10" maxlength="10"
+                                                                    value="<%= editing ? customerData.phone_no : oldValue.phone_no %>"
+                                                                        placeholder="Contact Number" aria-label="Contact Number"
+                                                                        aria-describedby="tel-addon" <%if(editing){%>required<%}%>>
+                                                                        <% if (typeof alert !='undefined' ) { %>
+                                                                            <div role="alert"
+                                                                                style="color:red; font-size:smaller; text-align: justify;">
+                                                                                <%if(alert=='Phone Number must be in numeric and 10 digit only'){%>
+                                                                                    &nbsp; <%= alert %>
+                                                                                        <% } %>
+                                                                            </div>
+                                                                            <% } %>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <input type="text"
+                                                                    class="form-control <%= validationErrors.find(e=>e.param==='city') ? 'invalid' : '' %>"
+                                                                    name="city" placeholder="City" aria-label="city"
+                                                                    aria-describedby="name-addon"
+                                                                    <%if(editing){%>required<%}%> value="<%= editing ? customerData.city : oldValue.city %>">
+                                                                        <% if (typeof alert !='undefined' ) { %>
+                                                                            <div role="alert"
+                                                                                style="color:red; font-size:smaller; text-align: justify;">
+                                                                                <%if( alert=='City should not be empty') {%>
+                                                                                    &nbsp; <%= alert %>
+                                                                                        <% } %>
+                                                                            </div>
+                                                                            <% } %>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="file" class="form-control" name="image" id="image">
+                                                            </div>
+                                                            
+                                                            <div class="text-center">
+                                                                <%if(role===0){%>
+                                                                    <input type="hidden" name="super_user_id" id="super_user_id" value="<%= super_user_id %>">
+                                                                    <%}%>
+
+                                                                        <%if(editing){%>
+                                                                            <input type="hidden" name="cust_id" id="cust_id" value="<%= editing ? cust_id : customerData._id  %>">
+                                                                            <%}%>
+                                                                                <button type="submit"
+                                                                                    class="btn bg-gradient-info w-100 my-4 mb-2">
+                                                                                    <%if(editing){%>Update<%}else{%>Add<%}%> Customer
+                                                                                </button>
+                                                            </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+
+
+
+                        <%- include('./includes/end.ejs') %>

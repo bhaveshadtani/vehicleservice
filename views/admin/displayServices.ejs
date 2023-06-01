@@ -1,0 +1,295 @@
+<%- include('./includes/head.ejs') %>
+    <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+    <style>
+        .btn {
+            --bs-btn-padding-x: 0.8rem;
+            --bs-btn-padding-y: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/datatables.min.css">
+
+    </head>
+
+    <body class="g-sidenav-show bg-gray-100" style="overflow-x: hidden;">
+        <%- include('./includes/sidebar.ejs') %>
+            </aside>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <%- include('./includes/navigation.ejs') %>
+
+                    </nav>
+                    <!-- End Navbar -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="mt-3 mb-1 text-center pb-0">
+                                    <h5>Services table</h5>
+                                </div>
+                                <%if(role==0 || role==1){%>
+                                    <div class="row" style="text-align:right; padding-right:25px;">
+                                        <form action="addServices" method="GET">
+                                            <input type="hidden" name="cust_id" id="cust_id" value="<%=cust_id%>">
+                                            <div class="col-12">
+                                                <button type="submit" class="btn bg-gradient-info"
+                                                    style="width:200px;"><i class="fas fa-wrench opacity-10">
+                                                    </i>&nbsp;&nbsp; Add Service </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <%}%>
+                                        <div class="card-body px-0 pt-0 pb-2">
+                                            <div class="table-responsive">
+                                                <table id="table-1" class="table align-items-center mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-uppercase text-xs font-weight-bolder">
+                                                                User</th>
+                                                            <th class="text-uppercase text-xs font-weight-bolder ps-2">
+                                                                Vehicle No</th>
+                                                            <th
+                                                                class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                                Date</th>
+                                                            <th
+                                                                class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                                Location</th>
+                                                            <th
+                                                                class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                                Price</th>
+                                                            <th
+                                                                class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                                Status</th>
+                                                            <th
+                                                                class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%serviceData.forEach(service=>{%>
+                                                            <%if(service.payment_status== 'Unpaid' ){%>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex px-2 py-1">
+                                                                            <div>
+                                                                                <%if(service.customerId.userProfileImage){%>
+                                                                                    <img src="../uploads/<%=service.customerId.userProfileImage%>"
+                                                                                        class="avatar avatar-sm me-3"
+                                                                                        alt=" <%=service.customerId.userProfileImage%>">
+                                                                                    <%}else{%>
+                                                                                        <img src="/images/adminUserProfile.png"
+                                                                                            class="avatar avatar-sm me-3">
+                                                                                        <%}%>
+                                                                            </div>
+                                                                            <div
+                                                                                class="d-flex flex-column justify-content-center">
+                                                                                <h6 class="mb-0 text-sm">
+                                                                                    <%=service.customerId.name%>
+                                                                                </h6>
+                                                                                <p class="text-xs text-secondary mb-0">
+                                                                                    <%=service.customerId.email%>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="text-xs font-weight-bold mb-0">
+                                                                            <%=service.vehicle_no%>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p
+                                                                            class="text-xs font-weight-bold mb-0 text-left text-sm">
+                                                                            Pickup Date : <%=service.pickup_date%>
+                                                                        </p>
+
+                                                                        <p
+                                                                            class="text-xs text-secondary text-left mb-0">
+                                                                            Drop Date : <%=service.drop_date%>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p
+                                                                            class="text-xs font-weight-bold mb-0 text-left text-sm">
+                                                                            Location :<%=service.location%>
+                                                                        </p>
+
+                                                                        <p
+                                                                            class="text-xs text-secondary mb-0 text-left text-sm">
+                                                                            Service Loaction :
+                                                                            <%=service.service_location%>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p
+                                                                            class="text-xs text-center font-weight-bold mb-0">
+                                                                            <%=service.service_price%>
+                                                                        </p>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <p
+                                                                            class="text-xs text-center font-weight-bold mb-0">
+                                                                            <span
+                                                                                class="badge badge-sm bg-gradient-danger">
+                                                                                Unpaid
+                                                                            </span>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="align-middle text-center">
+                                                                        <form method="GET" name="form">
+                                                                            <input type="hidden" name="service_id"
+                                                                                id="service_id"
+                                                                                value="<%=service._id%>">
+                                                                            <button type="submit"
+                                                                                class="btn mt-2 font-weight-bold text-lg "
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="top"
+                                                                                title="Edit Service"
+                                                                                onclick="javascript:form.action='/admin/updateServices';">
+                                                                                <i
+                                                                                    class="fas fa-edit text-info"></i></button>
+                                                                            <%if(role!=2){%>
+                                                                                <button type="submit"
+                                                                                    class="btn mt-2 font-weight-bold text-lg"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="top"
+                                                                                    title="Delete"
+                                                                                    onclick="javascript:form.action='/admin/deleteService';">
+                                                                                    <i
+                                                                                        class="fas fa-trash-alt text-danger"></i>
+                                                                                </button>
+                                                                                <%}%>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                                <%}});%>
+                                                    </tbody>
+                                                </table>
+                                                <div class="row mb-4">
+                                                    <form method="GET" action='/admin/billing'>
+                                                        <input type="hidden" name="cust_id" id="cust_id"
+                                                            value="<%=cust_id%>">
+                                                        <div class="col-12 text-center">
+                                                            <button type="submit" class="btn bg-gradient-info mb-0"><i
+                                                                    class="fab fa-paypal opacity-10">
+                                                                </i>&nbsp;&nbsp;Proceede to Pay</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="mt-3 mb-1 text-center pb-0">
+                                    <h5>Successfully Transaction</h5>
+                                </div>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive">
+                                        <table id="table-2" class="table align-items-center mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-uppercase text-xs font-weight-bolder">
+                                                        User</th>
+                                                    <th class="text-uppercase text-xs font-weight-bolder ps-2">
+                                                        Vehicle No</th>
+                                                    <th class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                        Date</th>
+                                                    <th class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                        Location</th>
+                                                    <th class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                        Price</th>
+                                                    <th class="text-center text-uppercase  text-xs font-weight-bolder">
+                                                        Status</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%serviceData.forEach(service=>{%>
+                                                    <%if(service.payment_status== 'Paid' ){%>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex px-2 py-1">
+                                                                    <div>
+                                                                        <%if(service.customerId.userProfileImage){%>
+                                                                            <img src="../uploads/<%=service.customerId.userProfileImage%>"
+                                                                                class="avatar avatar-sm me-3"
+                                                                                alt=" <%=service.customerId.userProfileImage%>">
+                                                                            <%}else{%>
+                                                                                <img src="/images/adminUserProfile.png"
+                                                                                    class="avatar avatar-sm me-3">
+                                                                                <%}%>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex flex-column justify-content-center">
+                                                                        <h6 class="mb-0 text-sm">
+                                                                            <%=service.customerId.name%>
+                                                                        </h6>
+                                                                        <p class="text-xs text-secondary mb-0">
+                                                                            <%=service.customerId.email%>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p class="text-xs font-weight-bold mb-0">
+                                                                    <%=service.vehicle_no%>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                    class="text-xs font-weight-bold mb-0 text-left text-sm">
+                                                                    Pickup Date : <%=service.pickup_date%>
+                                                                </p>
+
+                                                                <p class="text-xs text-secondary text-left mb-0">
+                                                                    Drop Date : <%=service.drop_date%>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                    class="text-xs font-weight-bold mb-0 text-left text-sm">
+                                                                    Location :<%=service.location%>
+                                                                </p>
+
+                                                                <p
+                                                                    class="text-xs text-secondary mb-0 text-left text-sm">
+                                                                    Service Loaction : <%=service.service_location%>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="text-xs text-center font-weight-bold mb-0">
+                                                                    <%=service.service_price%>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="text-xs text-center font-weight-bold mb-0">
+                                                                    <span class="badge badge-sm bg-gradient-success">
+                                                                        Paid
+                                                                    </span>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <%}});%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- General JS Scripts -->
+                    <script src="/javascripts/page/app.min.js"></script>
+                    <!-- JS Libraies -->
+                    <script src="/javascripts/page/datatables.min.js"></script>
+                    <!-- Page Specific JS File -->
+                    <script src="/javascripts/page/datatables.js"></script>
+                    <!-- Template JS File -->
+                    <script src="/javascripts/page/scripts.js"></script>
+
+                    <%- include('./includes/end.ejs') %>

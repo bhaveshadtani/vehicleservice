@@ -1,0 +1,78 @@
+<%- include('./includes/head.ejs') %>
+
+    </head>
+
+    <body class="">
+        <!-- Navbar -->
+
+        <!-- End Navbar -->
+        <main class="main-content  mt-0">
+            <section>
+                <div class="page-header min-vh-75">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto mt-4 mb-7">
+                                <div class="card card-plain mt-8">
+                                    <div class="card-header pb-0 text-left bg-transparent">
+                                        <h3 class="font-weight-bolder text-info text-gradient">Welcome </h3>
+                                        <p class="mb-0">Enter your OTP to sign in</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="otp" method="POST" role="form">
+                                            <label>OTP <font style="color:red">*</font></label>
+                                            <div class="mb-3">
+                                                <input type="text" onkeypress="isNumber(event)" name="otp" class="form-control" placeholder="OTP"
+                                                    aria-label="OTP" aria-describedby="otp-addon">
+                                                    <div style="color:green; font-size:smaller; text-align: justify;">Time
+                                                        left : <span id="timer"></span>
+                                                        <div role="alert" style="color:red; font-size:smaller; text-align: justify;">
+                                                            <%= msg %>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mb-9">
+                                                <button type="submit"
+                                                    class="btn bg-gradient-info w-100 mt-4 mb-0">Verify</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
+                                    <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
+                                        style="background-image:url('/images/curved-images/curved11.jpg')"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <script>
+                let timerOn = true;
+                function timer(remaining) {
+                    var m = Math.floor(remaining / 60);
+                    var s = remaining % 60;
+                    document.getElementById('timer').innerHTML = '0' + m + ':' + s;
+                    m = m < 10 ? '0' + m : m;
+                    s = s < 10 ? '0' + s : s;
+                    remaining -= 1;
+                    if (remaining >= 0) {
+                        setTimeout(function () {
+                            timer(remaining);
+                        }, 1000);
+                        return;
+                    }
+                    if (!timerOn) {
+                        return;
+                    }
+                }
+                timer(300);
+            </script>
+
+
+
+
+            <%- include('./includes/end.ejs') %>

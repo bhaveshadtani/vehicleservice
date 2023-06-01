@@ -1,0 +1,121 @@
+<%- include('./includes/head.ejs') %>
+    <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+    <style>
+        .btn {
+            --bs-btn-padding-x: 0.8rem;
+            --bs-btn-padding-y: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/datatables.min.css">
+
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100" style="overflow-x: hidden;">
+        <%- include('./includes/sidebar.ejs') %>
+            </aside>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <%- include('./includes/navigation.ejs') %>
+
+                    </nav>
+                    <!-- End Navbar -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="mt-3 mb-1 text-center pb-0">
+                                        <h5>Car Table</h5>
+                                    </div>
+                                    <div class="row" style="text-align:right; padding-right:25px;">
+                                        <form action="addCarDetails" method="GET">
+                                            <div class="col-12">
+                                                <input type="hidden" name="brand_id" id="brand_id" value="<%=brand_id%>">
+                                                <button type="submit" class="btn bg-gradient-info" name="button" value="Cars" style="width:200px;">
+                                                    <i class="fas fa-car opacity-10"  >
+                                                    </i>&nbsp;&nbsp; Add Car </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-body px-0 pt-0 pb-2">
+                                        <div class="table-responsive p-0">
+                                            <table id="table-1" class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-uppercase text-xs font-weight-bolder">
+                                                            Car</th>
+                                                        <th
+                                                            class="text-center text-uppercase text-xs font-weight-bolder">
+                                                            Car Name</th>
+                                                        <th
+                                                            class="text-center text-uppercase text-xs font-weight-bolder">
+                                                            Action</th>
+                                                        <th style="display:none;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <%carModel.forEach(car_model=>{%>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="mx-5">
+                                                                    <img src="../car_details/<%=car_model.modelImage%>"
+                                                                        class="avatar avatar-xl"
+                                                                        alt=" <%=car_model.modelImage%>">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="font-weight-bold mb-0 text-center">
+                                                                    <%=car_model.modelName%>
+                                                                </h6>
+                                                
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <form method="GET" name="form">
+                                                                    <input type="hidden" name="car_model_id"
+                                                                        value="<%=car_model.id%>">
+                                                                    <button type="submit" disabled
+                                                                        class="btn mt-2 font-weight-bold text-lg"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        title="Edit"
+                                                                        onclick="javascript:form.action='/';">
+                                                                        <i class="fas fa-edit text-info"></i></a>
+                                                                    </button>
+                                                                    <button type="submit" disabled
+                                                                        class="btn mt-2 font-weight-bold text-lg"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        title="Delete"
+                                                                        onclick="javascript:form.action='/';">
+                                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                                    </button>
+                                                                    <button type="submit" name="button" value="Fuel"
+                                                                        class="btn mt-2 font-weight-bold text-lg"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        title="Fuel"
+                                                                        onclick="javascript:form.action='/admin/displayCarFuels';">
+                                                                        <i class="fas fa-gas-pump" style="color:green ;"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                            <td style="display:none;"></td>
+                                                        </tr>
+                                                        <%});%>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- General JS Scripts -->
+                    <script src="/javascripts/page/app.min.js"></script>
+                    <!-- JS Libraies -->
+                    <script src="/javascripts/page/datatables.min.js"></script>
+                    <!-- Page Specific JS File -->
+                    <script src="/javascripts/page/datatables.js"></script>
+                    <!-- Template JS File -->
+                    <script src="/javascripts/page/scripts.js"></script>
+
+                    <%- include('./includes/end.ejs') %>

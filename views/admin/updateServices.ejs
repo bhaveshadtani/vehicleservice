@@ -1,0 +1,98 @@
+<%- include('./includes/head.ejs') %>
+    <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100">
+        <%- include('./includes/sidebar.ejs') %>
+            </aside>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <%- include('./includes/navigation.ejs') %>
+
+                    </nav>
+                    <!-- End Navbar -->
+
+                    <main class="main-content  mt-0">
+                        <section class="min-vh-10 mb-8">
+
+                            <div class="container">
+                                <div class="row mt-6">
+                                    <div class="col-xl-8 col-lg-5 col-md-7 mx-auto">
+                                        <div class="card z-index-0">
+                                            <div class="card-header text-center pt-3 pb-0">
+                                                <h5>Update Service</h5>
+                                            </div>
+                                            <div class="card-body mt-0">
+                                                <form action="updateServices" method="POST" role="form text-left">
+                                                    <div class="mb-3">
+                                                        <select required name="customerId" id="customerId"
+                                                            class="form-control">
+                                                            <% customerData.forEach(service=>{%>
+                                                                <option selected value="<%=service.customerId._id%>">
+                                                                    <%=service.customerId.email%>
+                                                                </option>
+                                                                <% }); %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" required
+                                                            name="vehicle_no" placeholder="Vehicle No"
+                                                            aria-label="Vehicle no" aria-describedby="vehicle_no-addon"
+                                                            value="<%=servicesData.vehicle_no%>">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" required
+                                                            name="pickup_date" onfocus="(this.type='date')"
+                                                            placeholder="Enter Pickup Date"
+                                                            aria-label="Enter Pickup Date"
+                                                            value="<%=servicesData.pickup_date%>"
+                                                            aria-describedby="pickup_date-addon">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" required
+                                                            name="drop_date" onfocus="(this.type='date')"
+                                                            placeholder="Enter Drop Date" aria-label="Enter Drop Date"
+                                                            value="<%=servicesData.drop_date%>"
+                                                            aria-describedby="drop_date-addon">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" required name="location"
+                                                            placeholder="Location" value="<%=servicesData.location%>"
+                                                            aria-label="location" aria-describedby="location-addon">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input type="text" class="form-control" required
+                                                            name="service_location" placeholder="Service Location"
+                                                            value="<%=servicesData.service_location%>"
+                                                            aria-label="service_location"
+                                                            aria-describedby="service_location-addon">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <input type="text" onkeypress="isNumber(event)"
+                                                            class="form-control" required name="service_price"
+                                                            placeholder="Service Price"
+                                                            value="<%=servicesData.service_price%>"
+                                                            aria-label="service_price"
+                                                            aria-describedby="service_price-addon">
+                                                    </div>
+
+                                                    <div class="text-center">
+                                                        <input type="hidden" name="service_id" id="service_id" value="<%= servicesData._id %>">
+                                                        <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Update Service</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+
+
+
+                        <%- include('./includes/end.ejs') %>

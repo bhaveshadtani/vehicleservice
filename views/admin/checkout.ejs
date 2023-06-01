@@ -1,0 +1,166 @@
+<%- include('./includes/head.ejs') %>
+    <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+    <style>
+        body {
+            background: #eee;
+        }
+
+        /*Invoice*/
+        .invoice .top-left {
+            font-size: 65px;
+            color: #3ba0ff;
+        }
+
+        .invoice .top-right {
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .invoice .table-row {
+            margin-left: -15px;
+            margin-right: -15px;
+            margin-top: 25px;
+        }
+
+        .invoice .payment-info {
+            font-weight: 500;
+        }
+
+        .invoice .table-row .table>thead {
+            border-top: 1px solid #ddd;
+        }
+
+        .invoice .table-row .table>thead>tr>th {
+            border-bottom: none;
+        }
+
+        .invoice .table>tbody>tr>td {
+            padding: 8px 20px;
+        }
+
+        .invoice .invoice-total {
+            margin-right: -10px;
+            font-size: 16px;
+        }
+
+        .invoice .last-row {
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100">
+        <%- include('./includes/sidebar.ejs') %>
+            </aside>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <%- include('./includes/navigation.ejs') %>
+
+                    </nav>
+                    <!-- End Navbar -->
+
+                    <div class="container-fluid py-4">
+                        <div class="container mb-5 ">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="col-md-12">
+                                        <div class="container bootstrap snippets bootdeys">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="panel panel-default invoice" id="invoice">
+                                                        <div class="panel-body">
+                                                            <div class="row">
+
+                                                                <div class="col-sm-12 top-right mt-3">
+                                                                    <h5 class="marginright">INVOICE-1234578</h5>
+                                                                    <span class="marginright">
+                                                                        <%= new Date().getDate()+'/ '+new Date().getMonth()+'/ '+new Date().getFullYear()%></span>
+                                                                    
+                                                                </div>
+
+                                                            </div>
+                                                            <hr>
+                                                            <div class="row">
+
+                                                                <div class="col-xs-4 from">
+                                                                    <p class="lead marginbottom">
+                                                                        <%=customerData.customerId.name%>
+                                                                    </p>
+                                                                    <p>Address : <%=customerData.customerId.city%></p>
+                                                                    <p>Phone : <%=customerData.customerId.phone_no%>
+                                                                    </p>
+                                                                    <p>Email : <%=customerData.customerId.email%>
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row table-row">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">Sr No.</th>
+                                                                            <th scope="col">Vehicle NO</th>
+                                                                            <th scope="col">Pickup Date</th>
+                                                                            <th scope="col">Drop Date</th>
+                                                                            <th scope="col">Location</th>
+                                                                            <th scope="col">Amount</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <%let srNo=1,totalAmount=0%>
+                                                                        
+                                                                        <%serviceData.forEach(service => {%>
+                                                                            <tr style="text-align: center;">
+                                                                                <th scope="row"><%=srNo%></th>
+                                                                            <td>
+                                                                                <%=service.vehicle_no%>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%=service.pickup_date%>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%=service.drop_date%>
+                                                                            </td>
+                                                                            <td><%=service.location%></td>
+                                                                            <td><%=service.service_price%></td>
+                                                                        </tr>
+                                                                        <%srNo=srNo+1; totalAmount = totalAmount + service.service_price;%>
+                                                                        <%});%>
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+
+                                                            <div class="row top-right">
+                                                                <div
+                                                                    class="col-xs-6 text-right pull-right invoice-total">
+                                                                    <p>Total : <%=totalAmount%> </p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 text-center">
+                                                        <form action="checkout" method="post">
+                                                            <input type="hidden" name="totalAmount" id="totalAmount" value="<%=totalAmount%>">
+                                                            <input type="hidden" name="card_paymentId" id="card_paymentId" value="<%=card_paymentId%>">
+                                                            <input type="hidden" name="cust_id" id="cust_id" value="<%=cust_id%>">
+                                                        <button type="submit" class="btn bg-gradient-info mb-0"><i
+                                                                class="fab fa-paypal opacity-10">
+                                                            </i>&nbsp;&nbsp;&nbsp;&nbsp; Pay &nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <%- include('./includes/end.ejs') %>

@@ -1,0 +1,110 @@
+<%- include('./includes/head.ejs') %>
+    <div class="min-height-300 bg-gradient-info position-absolute w-100"></div>
+
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100">
+        <%- include('./includes/sidebar.ejs') %>
+            </aside>
+
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <!-- Navbar -->
+                <%- include('./includes/navigation.ejs') %>
+
+                    </nav>
+                    <!-- End Navbar -->
+
+                    <main class="main-content  mt-0">
+                        <section class="min-vh-10 mb-8">
+                            <div class="container">
+                                <div class="row mt-6">
+                                    <div class="col-xl-8 col-lg-5 col-md-7 mx-auto">
+                                        <div class="card z-index-0">
+
+                                            <div class="card-body mt-0">
+                                                <%if(car_details=='Manufacturer'){%>
+                                                    <div class="card-header text-center pt-3 pb-0 mb-3">
+                                                        <h5>Add <%=car_details%>
+                                                        </h5>
+                                                    </div>
+                                                    <form action="addCarDetails" method="POST" role="form text-left"
+                                                        enctype="multipart/form-data">
+                                                        <div class="mb-3">
+                                                            <input type="text" class="form-control" required
+                                                                name="brand_name" placeholder="Brand Name"
+                                                                aria-label="Brand Name"
+                                                                aria-describedby="brand_name-addon">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <input type="file" class="form-control" name="image"
+                                                                id="image">
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <button type="submit" name="button" value="Manufacturer"
+                                                                class="btn bg-gradient-info w-100 my-4 mb-2">Add
+                                                                Manufacturer</button>
+                                                        </div>
+                                                    </form>
+                                                    <%}if(car_details=='Cars'){%>
+                                                        <div class="card-header text-center pt-3 pb-0 mb-3">
+                                                            <h5>Add <%=car_details%>
+                                                            </h5>
+                                                        </div>
+                                                        <form action="addCarDetails" method="POST" role="form text-left"
+                                                            enctype="multipart/form-data">
+                                                            <input type="hidden" name="brand_id" id="brand_id"
+                                                                value="<%=brand_id%>">
+                                                            <div class="mb-3">
+                                                                <input type="text" class="form-control" required
+                                                                    name="modelName" placeholder="Car Name"
+                                                                    aria-label="Car Name"
+                                                                    aria-describedby="modelName-addon">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="file" class="form-control" name="image"
+                                                                    id="image">
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <button type="submit" name="button" value="Cars"
+                                                                    class="btn bg-gradient-info w-100 my-4 mb-2">Add
+                                                                    Car</button>
+                                                            </div>
+                                                        </form>
+                                                        <%}if(car_details=='Fuel'){%>
+                                                            <div class="card-header text-center pt-3 pb-0">
+                                                                <h5>Add <%=car_details%>
+                                                                </h5>
+                                                            </div>
+                                                            <form action="addCarDetails" method="POST"
+                                                                role="form text-left" enctype="multipart/form-data">
+                                                                <input type="hidden" name="car_model_id" id="car_model_id"
+                                                                value="<%=car_model_id%>">
+                                                                <div class="mb-3">
+                                                                    <input type="text" class="form-control" required
+                                                                        name="fuel_type" placeholder="Fuel Type"
+                                                                        aria-label="Fuel"
+                                                                        aria-describedby="fuel_type-addon">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <input type="file" class="form-control" name="image"
+                                                                        id="image">
+                                                                </div>
+                                                                <div class="text-center">
+                                                                    <button type="submit" name="button" value="Fuel"
+                                                                        class="btn bg-gradient-info w-100 my-4 mb-2">Add
+                                                                        Fuel </button>
+                                                                </div>
+                                                            </form>
+                                                            <%}%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+
+
+
+
+                        <%- include('./includes/end.ejs') %>
